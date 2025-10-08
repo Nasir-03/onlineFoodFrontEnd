@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { clearCart, removeFromCart } from "../state/CartSlice";
 import { useNavigate } from "react-router-dom";
 import { removeUser } from "../state/UserSlice";
-import { removeJwt } from "../state/jwtSlice";
+import { removeJwt } from "../state/JwtSlice";
 
 const UserProfile = () => {
   const dispatch = useDispatch();
