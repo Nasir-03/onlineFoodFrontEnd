@@ -6,11 +6,12 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addToFavourites, setFavourites } from "../state/FavouriteSlice";
 import axios from "axios";
+import { BASE_URL } from "../../../config/Config";
 
 const ResturantCard = ({ item }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const token = useSelector((state) => state.jwt);
+  const token = useSelector((state) => state.jwt) || "";
 
   useEffect(()=>{console.log("item is: ",item)},[item])
 
@@ -22,7 +23,9 @@ const ResturantCard = ({ item }) => {
   const handleFavr = async (item) => {
     try {
       const res = await axios.put(
-        `http://localhost:8080/api/resturants/${item.id}/add-favouraite`, 
+        // `http://localhost:8080/api/resturants/${item.id}/add-favouraite`, 
+        `${BASE_URL}/api/resturants/${item.id}/add-favouraite`,
+
         {},
         {
           headers: {
@@ -41,7 +44,8 @@ const ResturantCard = ({ item }) => {
   useEffect(() => {
   const fetchFavourites = async () => {
     try {
-      const res = await axios.get("http://localhost:8080/api/resturants/favourites", {
+      const res = await axios.get(`${BASE_URL}/api/resturants/favourites`,
+ {
         headers: { Authorization: `Bearer ${token}` }
       });
       dispatch(setFavourites(res.data));
