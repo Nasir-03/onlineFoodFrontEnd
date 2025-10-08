@@ -10,8 +10,8 @@ import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import { Divider, Drawer, useMediaQuery } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { removeJwt } from "../../src/component/state/jwtSlice";
-import { removeUser } from "../../src/component/state/userSlice";
+import { removeJwt } from "../../src/component/state/JwtSlice";
+import { removeUser } from "../../src/component/state/UserSlice";
 import { clearCart } from "../../src/component/state/CartSlice";
 
 const menu = [
