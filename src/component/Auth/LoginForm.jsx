@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { loginService } from '../service/AuthService'
 import { jwtDecode } from 'jwt-decode'
 import { useDispatch, useSelector } from 'react-redux'
-import { addJwt } from '../state/jwtSlice'
+import { addJwt } from '../state/JwtSlice'
 import { addUser } from '../state/UserSlice'
 import useFindUser from '../service/UserService'
 
