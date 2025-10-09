@@ -21,6 +21,9 @@ const ResturantCard = ({ item }) => {
 
   // save favourits in DB
   const handleFavr = async (item) => {
+    if (!token) {
+      navigate("/account/login");
+    }
     try {
       const res = await axios.put(
         // `http://localhost:8080/api/resturants/${item.id}/add-favouraite`, 
