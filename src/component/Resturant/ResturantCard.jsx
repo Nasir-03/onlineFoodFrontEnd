@@ -61,6 +61,10 @@ const ResturantCard = ({ item }) => {
 
 
    const handleNavigateToResturant = ()=> {
+    if (!token) {
+      navigate("/account/login");
+      return;
+    }
       if (item.open){
         navigate(`/resturant/${item.address.city}/${item.name}/${item.id}`)
       }
