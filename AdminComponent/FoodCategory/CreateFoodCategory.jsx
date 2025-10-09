@@ -6,6 +6,7 @@ import {
   Select,
   InputLabel,
   FormControl,
+  CircularProgress,
 } from "@mui/material";
 import axios from "axios";
 import { getResturantByUserId } from "../../src/component/service/ResturantService";
@@ -13,6 +14,9 @@ import { getResturantByUserId } from "../../src/component/service/ResturantServi
 const BASE_URL = "http://localhost:8080/api";
 
 const CreateFoodCategory = ({ onCategoryCreated }) => {
+
+  const [loading, setLoading] = useState(false);
+
   const [formData, setFormData] = useState({
     categoryName: "",
     resturantId: "",
@@ -42,6 +46,7 @@ const CreateFoodCategory = ({ onCategoryCreated }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     if (!formData.categoryName || !formData.resturantId) {
       return;
     }
@@ -60,6 +65,9 @@ const CreateFoodCategory = ({ onCategoryCreated }) => {
       onCategoryCreated && onCategoryCreated();
     } catch (error) {
       console.error("Failed to create category:", error);
+    }
+    finally{
+      setLoading(false);
     }
   };
 
@@ -92,7 +100,7 @@ const CreateFoodCategory = ({ onCategoryCreated }) => {
         </FormControl>
 
         <Button type="submit" variant="contained" fullWidth>
-          Create Category
+          {loading ? <CircularProgress size={24} color="inherit" /> : "Create Category"}
         </Button>
       </form>
     </div>

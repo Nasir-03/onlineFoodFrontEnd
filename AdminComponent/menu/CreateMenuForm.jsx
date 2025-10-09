@@ -40,6 +40,8 @@ const initialValues = {
 };
 
 const CreateMenuForm = () => {
+
+  const [loading, setLoading] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [restaurants, setRestaurants] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -49,6 +51,7 @@ const CreateMenuForm = () => {
   const formik = useFormik({
     initialValues,
     onSubmit: async (values) => {
+      setLoading(true);
       try {
         const payload = {
           ...values,
@@ -73,6 +76,9 @@ const CreateMenuForm = () => {
           message:
             err.message || "Failed to create food. Check console for details.",
         });
+      }
+      finally {
+        setLoading(false);  
       }
     },
   });
@@ -125,7 +131,7 @@ const CreateMenuForm = () => {
         </Snackbar>
       )}
 
-      <div className="py-10 px-5 md:px-20 flex items-center justify-center min-h-screen">
+      <div className="px-5 md:px-20 flex  justify-center min-h-screen">
         <div className="w-full max-w-6xl">
           <h1 className="font-bold text-2xl text-center py-4">
             Add New Menu
@@ -337,9 +343,9 @@ const CreateMenuForm = () => {
               </Grid>
             </Grid>
 
-            <div className="mt-10 flex justify-center">
+            <div className="pt-10 flex justify-center">
               <Button color="primary" variant="contained" type="submit" >
-                Create Food
+                {loading ? <CircularProgress size={24} color="inherit" /> : "Create Menu"}
               </Button>
             </div>
           </form>

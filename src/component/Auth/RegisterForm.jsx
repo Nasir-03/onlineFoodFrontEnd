@@ -1,116 +1,3 @@
-// import {
-//   Button,
-//   FormControl,
-//   InputLabel,
-//   MenuItem,
-//   Select,
-//   TextField,
-//   Typography,
-// } from "@mui/material";
-// import { Field, Form, Formik } from "formik";
-// import React from "react";
-// import { useNavigate } from "react-router-dom";
-// import { registerService } from "../service/AuthService";
-// import axios from "axios";
-
-// const initailValue = {
-//   fullName: "",
-//   email: "",
-//   password: "",
-//   role: "ROLE_CUSTOMER",
-// };
-
-// const RegisterForm = () => {
-
-//   const handleSubmit = async (values) => {
-//   try {
-//     const response = await registerService(values);
-//     console.log("Registered successfully:", response.data);
-//     navigate("/account/login"); // redirect to login page
-//   } catch (err) {
-//     console.error("Error in register", err);
-//   }
-// };
-
-//   const navigate = useNavigate();
-
-//   return (
-//     <div>
-//       <Typography variant="h5" className="text-center">
-//         Register
-//       </Typography>
-
-//       <Formik onSubmit={handleSubmit} initialValues={initailValue}>
-//         <Form>
-//           <Field
-//             as={TextField}
-//             name="fullName"
-//             label="full name"
-//             fullWidth
-//             variant="outlined"
-//             margin="normal"
-//           />
-
-//           <Field
-//             as={TextField}
-//             name="email"
-//             label="email"
-//             fullWidth
-//             variant="outlined"
-//             margin="normal"
-//           />
-
-//           <Field
-//             as={TextField}
-//             name="password"
-//             label="password"
-//             fullWidth
-//             variant="outlined"
-//             margin="normal"
-//             type="password"
-//           />
-
-//           <FormControl fullWidth>
-//             <InputLabel id="role-simple-select-label">Role</InputLabel>
-//             <Field
-//               as={Select}
-//               labelId="role-simple-select-label"
-//               id="role-simple-select"
-//               name="role"
-//               // value={age}
-//               label="Age"
-//               // onChange={handleChange}
-//             >
-//               <MenuItem value={"ROLE_CUSTOMER"}>Customer</MenuItem>
-//               <MenuItem value={"ROLE_RESTURANT_OWNER"}>
-//                 Resturant owner
-//               </MenuItem>
-//             </Field>
-//           </FormControl>
-
-//           <Button
-//             sx={{ mt: 2, padding: ".5rem" }}
-//             fullWidth
-//             variant="contained"
-//             type="submit"
-//           >
-//             register
-//           </Button>
-//         </Form>
-//       </Formik>
-
-//       <Typography variant="body2" align="center" sx={{ mt: 5 }}>
-//         if have an account already?
-//         <Button size="small" onClick={() => navigate("/account/login")}>
-//           login
-//         </Button>
-//       </Typography>
-//     </div>
-//   );
-// };
-
-// export default RegisterForm;
-
 import {
   Button,
   FormControl,
@@ -148,10 +35,13 @@ const validationSchema = Yup.object({
 });
 
 const RegisterForm = () => {
+
+  const [loading, setLoading] = React.useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (values, { setErrors }) => {
     try {
+      setLoading(true);
       const response = await registerService(values);
       console.log("Registered successfully:", response.data);
       if (response.data.role === "ROLE_RESTURANT_OWNER"){
@@ -165,6 +55,9 @@ const RegisterForm = () => {
       } else {
         console.error("Error in register", err);
       }
+    }
+    finally {
+      setLoading(false);
     }
   };
 
@@ -235,6 +128,7 @@ const RegisterForm = () => {
               fullWidth
               variant="contained"
               type="submit"
+              disabled={loading}
             >
               Register
             </Button>

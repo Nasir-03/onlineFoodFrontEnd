@@ -28,14 +28,18 @@ const initialValues = {
 };
 
 const CreateResturantForm = () => {
+
   const [uploadImage, setUploadImage] = useState(false);
   const dispatch = useDispatch();
   const jwt = localStorage.getItem("jwt");
   const [notification, setNotification] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const formik = useFormik({
     initialValues,
     onSubmit: async (values) => {
+      setLoading(true);
+      // Prepare the data to be sent to the backend
       const data = {
         name: values.name,
         description: values.description,
@@ -71,6 +75,8 @@ const CreateResturantForm = () => {
           severity: "error",
           message: "Failed to create restaurant",
         });
+      } finally {
+        setLoading(false);
       }
     },
   });
@@ -315,7 +321,7 @@ const CreateResturantForm = () => {
           </Grid>
           <div className="mt-5">
             <Button color="primary" variant="contained" type="submit">
-              Create Resturant
+              {loading ? <CircularProgress size={24} color="inherit" /> : "Create Restaurant"}
             </Button>
           </div>
         </form>
