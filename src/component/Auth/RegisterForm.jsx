@@ -44,11 +44,11 @@ const RegisterForm = () => {
       setLoading(true);
       const response = await registerService(values);
       console.log("Registered successfully:", response.data);
-      if (response.data.role === "ROLE_RESTURANT_OWNER"){
-         navigate("/admin/resturant");
-      }else{
+      // if (response.data.role === "ROLE_RESTURANT_OWNER"){
+      //    navigate("/admin/resturant");
+      // }else{
         navigate("/account/login")
-      }
+      // }
     } catch (err) {
       if (err.response && err.response.status === 409) {
         setErrors({ email: err.response.data.errorMessage });
