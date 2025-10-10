@@ -108,18 +108,6 @@ const RegisterForm = () => {
               helperText={touched.password && errors.password}
             />
 
-      <Field
-              as={TextField}
-              name="password"
-              label="Password"
-              type="password"
-              fullWidth
-              variant="outlined"
-              margin="normal"
-              error={touched.password && Boolean(errors.password)}
-              helperText={touched.password && errors.password}
-            />
-
             <FormControl fullWidth margin="normal">
               <InputLabel id="role-simple-select-label">Role</InputLabel>
               <Field
